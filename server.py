@@ -51,7 +51,7 @@ def transferir_valor():
   numero_conta_destino = request.json['numeroDestino']
 
   if numero_conta_origem in bd:
-    
+
     if numero_conta_destino in bd:
       valor = request.json['valor']
 
@@ -60,7 +60,7 @@ def transferir_valor():
 
       return 'Tranferência efetuada com sucesso', 200
     else:
-      return 'Conta de origem inexistente', 404
+      return 'Conta de destino inexistente', 404
 
   else:
     return 'Conta de origem inexistente', 404
