@@ -35,7 +35,15 @@ def depositar_valor():
 
 @app.route('/saque', methods=['POST'])
 def sacar_valor():
-  return '', 501
+  numero_conta = request.json['numero']
+  
+  if numero_conta in bd:
+    valor = request.json['valor']
+    
+    bd[numero_conta] -= valor
+    return 'Saque efetuado com sucesso', 200
+  else:
+    return 'Conta inexistente', 404
 
 @app.route('/transferencia', methods=['POST'])
 def transferir_valor():
