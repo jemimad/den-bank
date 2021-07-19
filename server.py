@@ -12,10 +12,14 @@ def cadastrar_conta():
     bd[numero_conta] = 0
     return '', 201
 
-
 @app.route('/saldo', methods=['GET'])
 def consultar_saldo():
-  return '', 501
+  numero_conta = int(request.args['numero'])
+
+  if numero_conta in bd:
+    return str(bd[numero_conta]), 200
+  else:
+    return 'Conta inexistente', 404
 
 @app.route('/deposito', methods=['POST'])
 def depositar_valor():
