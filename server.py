@@ -23,7 +23,15 @@ def consultar_saldo():
 
 @app.route('/deposito', methods=['POST'])
 def depositar_valor():
-  return '', 501
+  numero_conta = request.json['numero']
+  
+  if numero_conta in bd:
+    valor = request.json['valor']
+    
+    bd[numero_conta] += valor
+    return 'Depósito efetuado com sucesso', 200
+  else:
+    return 'Conta inexistente', 404
 
 @app.route('/saque', methods=['POST'])
 def sacar_valor():
