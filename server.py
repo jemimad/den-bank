@@ -47,7 +47,23 @@ def sacar_valor():
 
 @app.route('/transferencia', methods=['POST'])
 def transferir_valor():
-  return '', 501
+  numero_conta_origem = request.json['numeroOrigem']
+  numero_conta_destino = request.json['numeroDestino']
 
+  if numero_conta_origem in bd:
+
+    if numero_conta_destino in bd:
+      valor = request.json['valor']
+
+      bd[numero_conta_origem] -= valor
+      bd[numero_conta_destino] += valor
+
+      return 'Tranferência efetuada com sucesso', 200
+    else:
+      return 'Conta de destino inexistente', 404
+
+  else:
+    return 'Conta de origem inexistente', 404
+    
 if __name__ == '__main__':
   app.run(debug=True)
