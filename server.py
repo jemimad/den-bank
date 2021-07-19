@@ -5,7 +5,13 @@ bd = {}
 
 @app.route('/cadastro', methods=['POST'])
 def cadastrar_conta():
-  return '', 501
+  numero_conta = request.json['numero']
+  if numero_conta in bd:
+    return 'Conta já cadastrada', 409
+  else:
+    bd[numero_conta] = 0
+    return '', 201
+
 
 @app.route('/saldo', methods=['GET'])
 def consultar_saldo():
@@ -24,4 +30,4 @@ def transferir_valor():
   return '', 501
 
 if __name__ == '__main__':
-  app.run()
+  app.run(debug=True)
