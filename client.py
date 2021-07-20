@@ -1,3 +1,6 @@
+import requests
+base_url = 'http://127.0.0.1:5000/'
+
 def listar_operacoes():
   print()
   print('==========================================================================')
@@ -9,6 +12,20 @@ def listar_operacoes():
   print('5 - Transferir valor                 6 - Listar operações')
   print('7 - Sair')
 
+
+def apresentar_saldo():
+  print()
+  print('==========================================================================')
+  numero = input('Informe o número da conta: ')
+  print('--------------------------------------------------------------------------')
+  response = requests.get(base_url + '/saldo?numero=' + numero)
+
+  if response.status_code == 200:
+    print('O saldo é de', response.text, 'reais')
+  else:
+    print(response.text)
+
+print('==========================================================================')
 print(' _______   _______ .__   __.    .______        ___      .__   __.  __  ___ ')
 print('|       \ |   ____||  \ |  |    |   _  \      /   \     |  \ |  | |  |/  / ')
 print('|  .--.  ||  |__   |   \|  |    |  |_)  |    /  ^  \    |   \|  | |  \'  /  ')
@@ -28,7 +45,7 @@ while True:
   if operacao == '1':
     pass
   elif operacao == '2':
-    pass
+    apresentar_saldo()
   elif operacao == '3':
     pass
   elif operacao == '4':
