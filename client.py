@@ -55,7 +55,6 @@ def apresentar_saldo():
         print(response.text)
     print('==========================================================================')
 
-
 def realizar_deposito():
     print()
     print('==========================================================================')
@@ -68,16 +67,14 @@ def realizar_deposito():
     print(response.text)
 
 def sacar_valor():
-  print()
-  print('==========================================================================')
-  numero = int(input('Informe o número da conta: '))
-  print('--------------------------------------------------------------------------')
-  valor = float(input('Informe o valor a ser sacado: '))
-  print('--------------------------------------------------------------------------')
-  response = requests.post(base_url + '/saque', json={'numero': numero, 'valor':valor})
-  print(response.text)
-  print('==========================================================================')
-=======
+    print()
+    print('==========================================================================')
+    numero = int(input('Informe o número da conta: '))
+    valor = float(input('Informe o valor a ser sacado: '))
+    print('--------------------------------------------------------------------------')
+    response = requests.post(base_url + '/saque', json={'numero': numero, 'valor':valor})
+    print(response.text)
+    print('==========================================================================')
     print('==========================================================================')
 
 print('==========================================================================')
