@@ -2,7 +2,6 @@ import requests
 
 base_url = 'http://127.0.0.1:5000'
 
-
 def listar_operacoes():
     print()
     print('==========================================================================')
@@ -13,7 +12,6 @@ def listar_operacoes():
     print('3 - Depositar valor                  4 - Sacar valor')
     print('5 - Transferir valor                 6 - Listar operações')
     print('7 - Sair')
-
 
 def cadastro_contas():
     print()
@@ -69,8 +67,18 @@ def realizar_deposito():
                              json={'numero': numero, 'valor': valor})
     print(response.text)
 
+def sacar_valor():
+  print()
+  print('==========================================================================')
+  numero = int(input('Informe o número da conta: '))
+  print('--------------------------------------------------------------------------')
+  valor = float(input('Informe o valor a ser sacado: '))
+  print('--------------------------------------------------------------------------')
+  response = requests.post(base_url + '/saque', json={'numero': numero, 'valor':valor})
+  print(response.text)
+  print('==========================================================================')
+=======
     print('==========================================================================')
-
 
 print('==========================================================================')
 print(' _______   _______ .__   __.    .______        ___      .__   __.  __  ___ ')
@@ -84,7 +92,6 @@ print('                                                                    v1.0.
 listar_operacoes()
 
 while True:
-
     print()
     print('==========================================================================')
     operacao = input('Selecione uma operação: ')
@@ -97,7 +104,7 @@ while True:
     elif operacao == '3':
         realizar_deposito()
     elif operacao == '4':
-        pass
+        sacar_valor()
     elif operacao == '5':
         transferir_valor()
     elif operacao == '6':
