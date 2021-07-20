@@ -10,7 +10,7 @@ def cadastrar_conta():
     return 'Conta já cadastrada', 409
   else:
     bd[numero_conta] = 0
-    return '', 201
+    return 'Conta cadastrada com sucesso!', 201
 
 @app.route('/saldo', methods=['GET'])
 def consultar_saldo():
@@ -29,7 +29,7 @@ def depositar_valor():
     valor = request.json['valor']
     
     bd[numero_conta] += valor
-    return 'Depósito efetuado com sucesso', 200
+    return 'Depósito efetuado com sucesso!', 200
   else:
     return 'Conta inexistente', 404
 
@@ -41,7 +41,7 @@ def sacar_valor():
     valor = request.json['valor']
     
     bd[numero_conta] -= valor
-    return 'Saque efetuado com sucesso', 200
+    return 'Saque efetuado com sucesso!', 200
   else:
     return 'Conta inexistente', 404
 
@@ -58,7 +58,7 @@ def transferir_valor():
       bd[numero_conta_origem] -= valor
       bd[numero_conta_destino] += valor
 
-      return 'Tranferência efetuada com sucesso', 200
+      return 'Tranferência efetuada com sucesso!', 200
     else:
       return 'Conta de destino inexistente', 404
 
