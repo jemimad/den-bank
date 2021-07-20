@@ -2,6 +2,7 @@ import requests
 
 base_url = 'http://127.0.0.1:5000'
 
+
 def listar_operacoes():
     print()
     print('==========================================================================')
@@ -12,6 +13,7 @@ def listar_operacoes():
     print('3 - Depositar valor                  4 - Sacar valor')
     print('5 - Transferir valor                 6 - Listar operações')
     print('7 - Sair')
+
 
 def cadastro_contas():
     print()
@@ -25,18 +27,34 @@ def cadastro_contas():
 
     print('==========================================================================')
 
-def apresentar_saldo():
-  print()
-  print('==========================================================================')
-  numero = input('Informe o número da conta: ')
-  print('--------------------------------------------------------------------------')
-  response = requests.get(base_url + '/saldo?numero=' + numero)
 
-  if response.status_code == 200:
-    print('O saldo é de', response.text, 'reais')
-  else:
+def apresentar_saldo():
+    print()
+    print('==========================================================================')
+    numero = input('Informe o número da conta: ')
+    print('--------------------------------------------------------------------------')
+    response = requests.get(base_url + '/saldo?numero=' + numero)
+
+    if response.status_code == 200:
+        print('O saldo é de', response.text, 'reais')
+    else:
+        print(response.text)
+    print('==========================================================================')
+
+
+def realizar_deposito():
+    print()
+    print('==========================================================================')
+    numero = int(input('Informe o número da conta: '))
+    valor = float(input('Informe o valor a ser depositado: '))
+    print('--------------------------------------------------------------------------')
+
+    response = requests.post(base_url + '/deposito',
+                             json={'numero': numero, 'valor': valor})
     print(response.text)
-  
+
+    print('==========================================================================')
+
 
 print('==========================================================================')
 print(' _______   _______ .__   __.    .______        ___      .__   __.  __  ___ ')
@@ -61,7 +79,7 @@ while True:
     elif operacao == '2':
         apresentar_saldo()
     elif operacao == '3':
-        pass
+        realizar_deposito()
     elif operacao == '4':
         pass
     elif operacao == '5':
