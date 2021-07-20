@@ -27,6 +27,22 @@ def cadastro_contas():
 
     print('==========================================================================')
 
+def transferir_valor():
+    print()
+    print('==========================================================================')
+    numero_conta_origem = int(input('Informe o número da conta de origem: '))
+    numero_conta_destino = int(input('Informe o número da conta de destino: '))
+    valor = float(input('Informe o valor a ser transferido: '))
+    print('--------------------------------------------------------------------------')
+
+    response = requests.post(base_url + '/transferencia', json={
+        'numeroOrigem': numero_conta_origem,
+        'numeroDestino': numero_conta_destino,
+        'valor': valor
+    })
+    print(response.text)
+
+    print('==========================================================================')
 
 print(' _______   _______ .__   __.    .______        ___      .__   __.  __  ___ ')
 print('|       \ |   ____||  \ |  |    |   _  \      /   \     |  \ |  | |  |/  / ')
@@ -53,7 +69,7 @@ while True:
     elif operacao == '4':
         pass
     elif operacao == '5':
-        pass
+        transferir_valor()
     elif operacao == '6':
         listar_operacoes()
     elif operacao == '7':
