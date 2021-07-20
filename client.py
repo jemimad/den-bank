@@ -25,6 +25,17 @@ def apresentar_saldo():
   else:
     print(response.text)
 
+def sacar_valor():
+  print()
+  print('==========================================================================')
+  numero = int(input('Informe o número da conta: '))
+  print('--------------------------------------------------------------------------')
+  valor = float(input('Informe o valor a ser sacado: '))
+  print('--------------------------------------------------------------------------')
+  response = requests.post(base_url + '/saque', json={'numero': numero, 'valor':valor})
+  print(response.text)
+  print('==========================================================================')
+
 print('==========================================================================')
 print(' _______   _______ .__   __.    .______        ___      .__   __.  __  ___ ')
 print('|       \ |   ____||  \ |  |    |   _  \      /   \     |  \ |  | |  |/  / ')
@@ -49,7 +60,7 @@ while True:
   elif operacao == '3':
     pass
   elif operacao == '4':
-    pass
+    sacar_valor()
   elif operacao == '5':
     pass
   elif operacao == '6':
