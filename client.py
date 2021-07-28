@@ -2,6 +2,7 @@ import requests
 
 base_url = 'http://127.0.0.1:5000'
 
+
 def listar_operacoes():
     print()
     print('==========================================================================')
@@ -13,17 +14,41 @@ def listar_operacoes():
     print('5 - Transferir valor                 6 - Listar operações')
     print('7 - Sair')
 
-def cadastro_contas():
+
+def cadastro_conta(tipo_conta):
     print()
     print('==========================================================================')
     numero = int(input('Informe o número da conta: '))
     print('--------------------------------------------------------------------------')
 
     response = requests.post(base_url + '/cadastro',
-                             json={'numero': numero})
+                             json={'numero': numero, 'tipo': tipo_conta})
     print(response.text)
 
     print('==========================================================================')
+
+
+def selecionar_cadastro_conta():
+    print()
+    print('==========================================================================')
+    print('Selecione o tipo de conta para cadastro')
+    print('--------------------------------------------------------------------------')
+    print("1- Conta simples")
+    print("2- Conta bônus")
+    tipo_conta = int(input())
+
+    if tipo_conta == 1:
+        cadastro_conta(1)
+    elif tipo_conta == 2:
+        cadastro_conta(2)
+    else:
+        print()
+        print(
+            '==========================================================================')
+        print('Tipo de conta inválida!')
+        print(
+            '==========================================================================')
+
 
 def transferir_valor():
     print()
@@ -42,6 +67,7 @@ def transferir_valor():
 
     print('==========================================================================')
 
+
 def apresentar_saldo():
     print()
     print('==========================================================================')
@@ -55,6 +81,7 @@ def apresentar_saldo():
         print(response.text)
     print('==========================================================================')
 
+
 def realizar_deposito():
     print()
     print('==========================================================================')
@@ -66,16 +93,19 @@ def realizar_deposito():
                              json={'numero': numero, 'valor': valor})
     print(response.text)
 
+
 def sacar_valor():
     print()
     print('==========================================================================')
     numero = int(input('Informe o número da conta: '))
     valor = float(input('Informe o valor a ser sacado: '))
     print('--------------------------------------------------------------------------')
-    response = requests.post(base_url + '/saque', json={'numero': numero, 'valor':valor})
+    response = requests.post(
+        base_url + '/saque', json={'numero': numero, 'valor': valor})
     print(response.text)
     print('==========================================================================')
     print('==========================================================================')
+
 
 print('==========================================================================')
 print(' _______   _______ .__   __.    .______        ___      .__   __.  __  ___ ')
@@ -95,7 +125,7 @@ while True:
     print('==========================================================================')
 
     if operacao == '1':
-        cadastro_contas()
+        selecionar_cadastro_conta()
     elif operacao == '2':
         apresentar_saldo()
     elif operacao == '3':
