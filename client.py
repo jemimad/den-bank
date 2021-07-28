@@ -2,6 +2,7 @@ import requests
 
 base_url = 'http://127.0.0.1:5000'
 
+
 def listar_operacoes():
     print()
     print('==========================================================================')
@@ -13,12 +14,14 @@ def listar_operacoes():
     print('5 - Transferir valor                 6 - Render juros')
     print('7 - Listar operações                 8 - Sair')
 
+
 def cadastro_contas():
     print()
     print('==========================================================================')
     print()
-    print('1 - Conta simples')
+    print('1 - Conta simples                    2 - Conta bônus                      ')
     print('3 - Conta poupança')
+
     print()
     print('==========================================================================')
     tipo = int(input('Informe o tipo da conta: '))
@@ -30,6 +33,7 @@ def cadastro_contas():
     print(response.text)
 
     print('==========================================================================')
+
 
 def transferir_valor():
     print()
@@ -48,6 +52,7 @@ def transferir_valor():
 
     print('==========================================================================')
 
+
 def apresentar_saldo():
     print()
     print('==========================================================================')
@@ -61,6 +66,7 @@ def apresentar_saldo():
         print(response.text)
     print('==========================================================================')
 
+
 def realizar_deposito():
     print()
     print('==========================================================================')
@@ -72,13 +78,15 @@ def realizar_deposito():
                              json={'numero': numero, 'valor': valor})
     print(response.text)
 
+
 def sacar_valor():
     print()
     print('==========================================================================')
     numero = int(input('Informe o número da conta: '))
     valor = float(input('Informe o valor a ser sacado: '))
     print('--------------------------------------------------------------------------')
-    response = requests.post(base_url + '/saque', json={'numero': numero, 'valor':valor})
+    response = requests.post(
+        base_url + '/saque', json={'numero': numero, 'valor': valor})
     print(response.text)
     print('==========================================================================')
     print('==========================================================================')
