@@ -18,6 +18,7 @@ def cadastro_contas():
     print('==========================================================================')
     print()
     print('1 - Conta simples')
+    print('3 - Conta poupança')
     print()
     print('==========================================================================')
     tipo = int(input('Informe o tipo da conta: '))
