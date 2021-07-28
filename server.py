@@ -14,6 +14,9 @@ def cadastrar_conta():
     if tipo_conta == 1: # Conta simples
       bd[numero_conta] = [1, 0]
       return 'Conta simples cadastrada com sucesso!', 201
+    elif tipo_conta == 3: # Conta poupança
+      bd[numero_conta] = [3, 0]
+      return 'Conta poupança cadastrada com sucesso!', 201
     else:
       return 'Tipo de conta inexistente!', 400
 
