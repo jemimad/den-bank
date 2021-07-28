@@ -72,6 +72,26 @@ def transferir_valor():
 
   else:
     return 'Conta de origem inexistente', 404
+
+
+@app.route('/render_juros', methods=['POST'])
+def render_juros():
+  numero_conta = request.json['numero']
+  
+  if numero_conta in bd:
+
+    if bd[numero_conta][0] == 3:
+      valor = request.json['valor']
+
+      saldo_atual = bd[numero_conta][1]
+      bd[numero_conta][1] += saldo_atual*(valor/100)
+
+    else:
+      return 'Conta não é poupança', 400    
+
+    return 'Juros aplicados com sucesso!', 200
+  else:
+    return 'Conta inexistente', 404
     
 if __name__ == '__main__':
   app.run(debug=True)
