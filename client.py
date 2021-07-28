@@ -16,11 +16,16 @@ def listar_operacoes():
 def cadastro_contas():
     print()
     print('==========================================================================')
+    print()
+    print('1 - Conta simples')
+    print()
+    print('==========================================================================')
+    tipo = int(input('Informe o tipo da conta: '))
     numero = int(input('Informe o número da conta: '))
     print('--------------------------------------------------------------------------')
 
     response = requests.post(base_url + '/cadastro',
-                             json={'numero': numero})
+                             json={'numero': numero, 'tipo': tipo})
     print(response.text)
 
     print('==========================================================================')

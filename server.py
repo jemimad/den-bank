@@ -6,18 +6,23 @@ bd = {}
 @app.route('/cadastro', methods=['POST'])
 def cadastrar_conta():
   numero_conta = request.json['numero']
+  tipo_conta = request.json['tipo']
+  
   if numero_conta in bd:
     return 'Conta já cadastrada', 409
   else:
-    bd[numero_conta] = 0
-    return 'Conta cadastrada com sucesso!', 201
+    if tipo_conta == 1: # Conta simples
+      bd[numero_conta] = [1, 0]
+      return 'Conta simples cadastrada com sucesso!', 201
+    else:
+      return 'Tipo de conta inexistente!', 400
 
 @app.route('/saldo', methods=['GET'])
 def consultar_saldo():
   numero_conta = int(request.args['numero'])
 
   if numero_conta in bd:
-    return str(bd[numero_conta]), 200
+    return str(bd[numero_conta][1]), 200
   else:
     return 'Conta inexistente', 404
 
@@ -28,7 +33,7 @@ def depositar_valor():
   if numero_conta in bd:
     valor = request.json['valor']
     
-    bd[numero_conta] += valor
+    bd[numero_conta][1] += valor
     return 'Depósito efetuado com sucesso!', 200
   else:
     return 'Conta inexistente', 404
@@ -40,7 +45,7 @@ def sacar_valor():
   if numero_conta in bd:
     valor = request.json['valor']
     
-    bd[numero_conta] -= valor
+    bd[numero_conta][1] -= valor
     return 'Saque efetuado com sucesso!', 200
   else:
     return 'Conta inexistente', 404
@@ -55,8 +60,8 @@ def transferir_valor():
     if numero_conta_destino in bd:
       valor = request.json['valor']
 
-      bd[numero_conta_origem] -= valor
-      bd[numero_conta_destino] += valor
+      bd[numero_conta_origem][1] -= valor
+      bd[numero_conta_destino][1] += valor
 
       return 'Tranferência efetuada com sucesso!', 200
     else:
