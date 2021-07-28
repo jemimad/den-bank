@@ -11,8 +11,8 @@ def listar_operacoes():
     print()
     print('1 - Cadastrar nova conta             2 - Consultar saldo                  ')
     print('3 - Depositar valor                  4 - Sacar valor')
-    print('5 - Transferir valor                 6 - Listar operações')
-    print('7 - Sair')
+    print('5 - Transferir valor                 6 - Render juros')
+    print('7 - Listar operações                 8 - Sair')
 
 
 def cadastro_contas():
@@ -20,6 +20,8 @@ def cadastro_contas():
     print('==========================================================================')
     print()
     print('1 - Conta simples                    2 - Conta bônus                      ')
+    print('3 - Conta poupança')
+
     print()
     print('==========================================================================')
     tipo = int(input('Informe o tipo da conta: '))
@@ -89,6 +91,16 @@ def sacar_valor():
     print('==========================================================================')
     print('==========================================================================')
 
+def render_juros():
+    print()
+    print('==========================================================================')
+    numero = int(input('Informe o número da conta: '))
+    valor = float(input('Informe a porcentagem de juros a ser aplicado no saldo: '))
+    print('--------------------------------------------------------------------------')
+    response = requests.post(base_url + '/render_juros', json={'numero': numero, 'valor':valor})
+    print(response.text)
+    print('==========================================================================')
+    print('==========================================================================')
 
 print('==========================================================================')
 print(' _______   _______ .__   __.    .______        ___      .__   __.  __  ___ ')
@@ -118,8 +130,10 @@ while True:
     elif operacao == '5':
         transferir_valor()
     elif operacao == '6':
-        listar_operacoes()
+        render_juros()
     elif operacao == '7':
+        listar_operacoes()
+    elif operacao == '8':
         print()
         print('==========================================================================')
         print('Até mais!')
