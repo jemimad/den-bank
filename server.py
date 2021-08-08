@@ -8,6 +8,7 @@ bd = {}
 def cadastrar_conta():
     numero_conta = request.json['numero']
     tipo_conta = request.json['tipo']
+    saldo_conta = request.json['saldo']
 
     if numero_conta in bd:
         return 'Conta já cadastrada', 409
@@ -19,7 +20,7 @@ def cadastrar_conta():
             bd[numero_conta] = [2, 0, 10]
             return 'Conta bônus cadastrada com sucesso!', 201
         elif tipo_conta == 3:  # Conta poupança
-            bd[numero_conta] = [3, 0]
+            bd[numero_conta] = [3, saldo_conta]
             return 'Conta poupança cadastrada com sucesso!', 201
         else:
             return 'Tipo de conta inexistente!', 400
