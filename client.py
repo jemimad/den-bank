@@ -26,10 +26,13 @@ def cadastro_contas():
     print('==========================================================================')
     tipo = int(input('Informe o tipo da conta: '))
     numero = int(input('Informe o número da conta: '))
+    saldo = 0
+    if tipo == 3:
+        saldo = float(input('Informe o saldo inicial:'))
     print('--------------------------------------------------------------------------')
 
     response = requests.post(base_url + '/cadastro',
-                             json={'numero': numero, 'tipo': tipo})
+                             json={'numero': numero, 'tipo': tipo, 'saldo':saldo})
     print(response.text)
 
     print('==========================================================================')
