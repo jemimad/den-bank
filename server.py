@@ -61,9 +61,12 @@ def sacar_valor():
     if numero_conta in bd:
         valor = request.json['valor']
 
+        if (bd[numero_conta][0] == 3) and (bd[numero_conta][1] - valor < 0):
+            return 'Saldo insuficiente', 400
+
         if (bd[numero_conta][0] == 1 or bd[numero_conta][0] == 2) and (bd[numero_conta][1] - valor < -1000): #Simples ou Bônus
             return 'Não há saldo suficiente para realizar o saque', 400
-       
+
         bd[numero_conta][1] -= valor
         return 'Saque efetuado com sucesso!', 200
     else:
@@ -78,6 +81,9 @@ def transferir_valor():
     if numero_conta_origem in bd:
         if numero_conta_destino in bd:
             valor = request.json['valor']
+
+            if (bd[numero_conta_origem][0] == 3) and (bd[numero_conta_origem][1] - valor < 0):
+                return 'Saldo insuficiente', 400
 
             if (bd[numero_conta_origem][0] == 1 or bd[numero_conta_origem][0] == 2) and (bd[numero_conta_origem][1] - valor < -1000): #Simples ou Bônus
                 return 'Não há saldo suficiente para realizar o saque', 400
