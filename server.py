@@ -6,23 +6,23 @@ bd = {}
 
 @app.route('/cadastro', methods=['POST'])
 def cadastrar_conta():
-  numero_conta = request.json['numero']
-  tipo_conta = request.json['tipo']
-  
-  if numero_conta in bd:
-    return 'Conta já cadastrada', 409
-  else:
-    if tipo_conta == 1: # Conta simples
-      bd[numero_conta] = [1, 0]
-      return 'Conta simples cadastrada com sucesso!', 201
-    elif tipo_conta == 2:  # Conta Bônus
-      bd[numero_conta] = [2, 0, 10]
-      return 'Conta bônus cadastrada com sucesso!', 201
-    elif tipo_conta == 3: # Conta poupança
-      bd[numero_conta] = [3, 0]
-      return 'Conta poupança cadastrada com sucesso!', 201
+    numero_conta = request.json['numero']
+    tipo_conta = request.json['tipo']
+
+    if numero_conta in bd:
+        return 'Conta já cadastrada', 409
     else:
-      return 'Tipo de conta inexistente!', 400
+        if tipo_conta == 1:  # Conta simples
+            bd[numero_conta] = [1, 0]
+            return 'Conta simples cadastrada com sucesso!', 201
+        elif tipo_conta == 2:  # Conta Bônus
+            bd[numero_conta] = [2, 0, 10]
+            return 'Conta bônus cadastrada com sucesso!', 201
+        elif tipo_conta == 3:  # Conta poupança
+            bd[numero_conta] = [3, 0]
+            return 'Conta poupança cadastrada com sucesso!', 201
+        else:
+            return 'Tipo de conta inexistente!', 400
 
 
 @app.route('/saldo', methods=['GET'])
@@ -80,7 +80,7 @@ def transferir_valor():
             bd[numero_conta_destino][1] += valor
 
             if bd[numero_conta_destino][0] == 2:
-                bd[numero_conta_destino][2] += int(valor / 200)
+                bd[numero_conta_destino][2] += int(valor / 150)
                 print(bd[numero_conta_destino][2])
             return 'Tranferência efetuada com sucesso!', 200
         else:
@@ -89,24 +89,26 @@ def transferir_valor():
     else:
         return 'Conta de origem inexistente', 404
 
+
 @app.route('/render_juros', methods=['POST'])
 def render_juros():
-  numero_conta = request.json['numero']
-  
-  if numero_conta in bd:
+    numero_conta = request.json['numero']
 
-    if bd[numero_conta][0] == 3:
-      valor = request.json['valor']
+    if numero_conta in bd:
 
-      saldo_atual = bd[numero_conta][1]
-      bd[numero_conta][1] += saldo_atual*(valor/100)
+        if bd[numero_conta][0] == 3:
+            valor = request.json['valor']
 
+            saldo_atual = bd[numero_conta][1]
+            bd[numero_conta][1] += saldo_atual*(valor/100)
+
+        else:
+            return 'Conta não é poupança', 400
+
+        return 'Juros aplicados com sucesso!', 200
     else:
-      return 'Conta não é poupança', 400    
+        return 'Conta inexistente', 404
 
-    return 'Juros aplicados com sucesso!', 200
-  else:
-    return 'Conta inexistente', 404
 
 if __name__ == '__main__':
     app.run(debug=True)
