@@ -8,6 +8,7 @@ bd = {}
 def cadastrar_conta():
     numero_conta = request.json['numero']
     tipo_conta = request.json['tipo']
+    saldo_conta = request.json['saldo']
 
     if numero_conta in bd:
         return 'Conta já cadastrada', 409
@@ -19,7 +20,7 @@ def cadastrar_conta():
             bd[numero_conta] = [2, 0, 10]
             return 'Conta bônus cadastrada com sucesso!', 201
         elif tipo_conta == 3:  # Conta poupança
-            bd[numero_conta] = [3, 0]
+            bd[numero_conta] = [3, saldo_conta]
             return 'Conta poupança cadastrada com sucesso!', 201
         else:
             return 'Tipo de conta inexistente!', 400
@@ -63,6 +64,9 @@ def sacar_valor():
         if (bd[numero_conta][0] == 3) and (bd[numero_conta][1] - valor < 0):
             return 'Saldo insuficiente', 400
 
+        if (bd[numero_conta][0] == 1 or bd[numero_conta][0] == 2) and (bd[numero_conta][1] - valor < -1000): #Simples ou Bônus
+            return 'Não há saldo suficiente para realizar o saque', 400
+
         bd[numero_conta][1] -= valor
         return 'Saque efetuado com sucesso!', 200
     else:
@@ -75,12 +79,14 @@ def transferir_valor():
     numero_conta_destino = request.json['numeroDestino']
 
     if numero_conta_origem in bd:
-
         if numero_conta_destino in bd:
             valor = request.json['valor']
 
             if (bd[numero_conta_origem][0] == 3) and (bd[numero_conta_origem][1] - valor < 0):
                 return 'Saldo insuficiente', 400
+
+            if (bd[numero_conta_origem][0] == 1 or bd[numero_conta_origem][0] == 2) and (bd[numero_conta_origem][1] - valor < -1000): #Simples ou Bônus
+                return 'Não há saldo suficiente para realizar o saque', 400
 
             bd[numero_conta_origem][1] -= valor
             bd[numero_conta_destino][1] += valor
