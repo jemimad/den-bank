@@ -47,7 +47,6 @@ def depositar_valor():
 
         if bd[numero_conta][0] == 2:
             bd[numero_conta][2] += int(valor / 100)
-            print(bd[numero_conta][2])
 
         return 'Depósito efetuado com sucesso!', 200
     else:
@@ -93,7 +92,6 @@ def transferir_valor():
 
             if bd[numero_conta_destino][0] == 2:
                 bd[numero_conta_destino][2] += int(valor / 150)
-                print(bd[numero_conta_destino][2])
             return 'Tranferência efetuada com sucesso!', 200
         else:
             return 'Conta de destino inexistente', 404
