@@ -21,13 +21,13 @@ jobs:
     - name: Install Python and Flask
       run: |
         python -m pip install --upgrade pip
+        pip install flake8 pytest
         pip install flask
         pip install requests
     
     - name: Build system
       run: |
-        py server.py
-        py client.py
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
     
     - name: Run unitary tests
       run: |
