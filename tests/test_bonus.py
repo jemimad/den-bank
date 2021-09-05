@@ -3,6 +3,7 @@ import json
 
 from server import app
 
+
 class TestContaBonus(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
@@ -76,6 +77,7 @@ class TestContaBonus(unittest.TestCase):
 
         self.assertEqual('Tranferência efetuada com sucesso!', response.data.decode('utf-8'))
         self.assertEqual(200, response.status_code)
+
 
 if __name__ == '__main__':
     unittest.TestLoader.sortTestMethodsUsing = lambda *args: -1
